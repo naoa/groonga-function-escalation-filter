@@ -1,0 +1,56 @@
+register functions/escalation_filter
+[[0,0.0,0.0],true]
+table_create Entries TABLE_NO_KEY
+[[0,0.0,0.0],true]
+column_create Entries title COLUMN_SCALAR ShortText
+[[0,0.0,0.0],true]
+load --table Entries
+[
+{"title": "Groonga and SQL"},
+{"title": "Mroonga and MySQL"},
+{"title": "PGroonga and PostgreSQL"}
+]
+[[0,0.0,0.0],3]
+table_create Terms TABLE_PAT_KEY ShortText --default_tokenizer TokenBigram
+[[0,0.0,0.0],true]
+column_create Terms index COLUMN_INDEX|WITH_POSITION Entries title
+[[0,0.0,0.0],true]
+select Entries --filter 'title @ "Groonga" || escalation_filter("title @ \\"SQL\\"", 1)' --output_columns '_id,_score,title'
+[
+  [
+    0,
+    0.0,
+    0.0
+  ],
+  [
+    [
+      [
+        2
+      ],
+      [
+        [
+          "_id",
+          "UInt32"
+        ],
+        [
+          "_score",
+          "Int32"
+        ],
+        [
+          "title",
+          "ShortText"
+        ]
+      ],
+      [
+        1,
+        1,
+        "Groonga and SQL"
+      ],
+      [
+        3,
+        1,
+        "PGroonga and PostgreSQL"
+      ]
+    ]
+  ]
+]

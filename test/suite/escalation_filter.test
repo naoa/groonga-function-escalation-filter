@@ -1,0 +1,16 @@
+register functions/escalation_filter
+
+table_create Entries TABLE_NO_KEY
+column_create Entries title COLUMN_SCALAR ShortText
+
+load --table Entries
+[
+{"title": "Groonga and SQL"},
+{"title": "Mroonga and MySQL"},
+{"title": "PGroonga and PostgreSQL"}
+]
+
+table_create Terms TABLE_PAT_KEY ShortText --default_tokenizer TokenBigram
+column_create Terms index COLUMN_INDEX|WITH_POSITION Entries title
+
+select Entries --filter 'title @ "Groonga" || escalation_filter("title @ \\"SQL\\"", 1)' --output_columns '_id,_score,title'
