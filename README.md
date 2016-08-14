@@ -2,7 +2,7 @@
 
 * ``escalation_filter("script_expr"[, threshold])``
 
-関数が呼ばれたタイミングで結果テーブルの件数がthreshold以上の場合にのみfilterを実行する。
+関数が呼ばれたタイミングで結果テーブルの件数がthreshold以下の場合にのみfilterを実行する。
 
 threshold: デフォルト0
 
