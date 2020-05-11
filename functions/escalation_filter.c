@@ -96,6 +96,7 @@ GRN_PLUGIN_REGISTER(grn_ctx *ctx)
     selector_proc = grn_proc_create(ctx, "escalation_filter", -1, GRN_PROC_FUNCTION,
                                     NULL, NULL, NULL, 0, NULL);
     grn_proc_set_selector(ctx, selector_proc, selector_escalation_filter);
+    grn_proc_set_selector_operator(ctx, selector_proc, GRN_OP_NOP);
   }
 
 
